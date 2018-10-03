@@ -16,8 +16,8 @@ var mushroomSizeY = 40;
 var mushroomList = [];
 var mushroomTimer = 0;
 var mushroomObject = {
-	width: 25,
-	height: 25,
+	width: 40,
+	height: 40,
 	speed: 3,
 }
 
@@ -50,6 +50,7 @@ function update(){
 	
 	drawAll();
 	ninjaCollision();
+	mushroomCollision();
 	ninjaMove();
 }
 
@@ -88,5 +89,22 @@ function ninjaCollision() {
 	}
 	if(ninjaX > canvas.width - ninjaSizeX){
 		ninjaX = canvas.width - ninjaSizeX;
+	}
+}
+function mushroomCollision() {
+	
+	for(i=0; i<mushroomList.length;i++){
+		var shroomInColumn = Math.floor((mushroomList[i].x)/tileWidth) //finding the tile x wise its in
+		var shroomInRow = Math.floor((mushroomList[i].y)/tileHeight);
+		var shroomInColumn2 = Math.floor((mushroomList[i].x+40)/tileWidth); //finding the tile x wise its in
+		var shroomInRow2 = Math.floor((mushroomList[i].y+40)/tileHeight);
+		var tileThatShroomXYisOn = shroomInColumn + shroomInRow * 8;
+		var tileThatShroomXYisOn2 = shroomInColumn2 + shroomInRow2 * 8;
+		if(mapGrid[tileThatShroomXYisOn] != 0) {
+			mapGrid[tileThatShroomXYisOn] = 0
+		}
+		if(mapGrid[tileThatShroomXYisOn2] != 0) {
+			mapGrid[tileThatShroomXYisOn2] = 0
+		}
 	}
 }
