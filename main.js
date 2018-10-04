@@ -100,11 +100,10 @@ function mushroomCollision() {
 		var shroomInRow2 = Math.floor((mushroomList[i].y+40)/tileHeight);
 		var tileThatShroomXYisOn = shroomInColumn + shroomInRow * 8;
 		var tileThatShroomXYisOn2 = shroomInColumn2 + shroomInRow2 * 8;
-		if(mapGrid[tileThatShroomXYisOn] != 0) {
-			mapGrid[tileThatShroomXYisOn] = 0
+		if(mapGrid[tileThatShroomXYisOn] != 0 || mapGrid[tileThatShroomXYisOn2] != 0) {
+			mapGrid[tileThatShroomXYisOn] = 0;
+			mapGrid[tileThatShroomXYisOn2] = 0;
 		}
-		if(mapGrid[tileThatShroomXYisOn2] != 0) {
-			mapGrid[tileThatShroomXYisOn2] = 0
-		}
+		
 	}
 }
