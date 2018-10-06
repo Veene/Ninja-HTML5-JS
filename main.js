@@ -69,7 +69,7 @@ function ninjaMove() {
 	if(RUNNING_UP && ninjaPermissionToMove){ //Add ninja has to be on ground to jump
 		ninjaY -= ninjaYSpeed;
 	}
-	ninjaY += 3; //GRAVITY
+	ninjaY += 5; //GRAVITY
 	// if(RUNNING_DOWN && ninjaPermissionToMove){
 	// 	ninjaY += ninjaYSpeed;
 	// }
@@ -92,7 +92,7 @@ function ninjaCollision() {
 	}
 }
 function mushroomCollision() {
-	
+	//collision with a platform
 	for(i=0; i<mushroomList.length;i++){
 		var shroomInColumn = Math.floor((mushroomList[i].x)/tileWidth) //finding the tile x wise its in
 		var shroomInRow = Math.floor((mushroomList[i].y+40)/tileHeight);
@@ -106,4 +106,11 @@ function mushroomCollision() {
 		}
 		
 	}
-}
+	//collision with ninja
+	for(i=0; i<mushroomList.length; i++){
+		if(ninjaX < (mushroomList[i].x+40) && mushroomList[i].x < ninjaX+40
+		&& ninjaY < mushroomList[i].y+40 && mushroomList[i].y < ninjaY+80) {
+			mushroomList.splice(i,1)
+		}
+	}
+} 
