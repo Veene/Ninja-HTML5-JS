@@ -24,15 +24,15 @@ function drawNinja(){
 function drawMushroom() {
     for(i=0;i<mushroomList.length;i++){
         drawImageSprite(mushroom1, mushroomList[i].x, mushroomList[i].y, mushroomObject.width, mushroomObject.height)
-        if(mushroomList[i].y > 800){
+        if(mushroomList[i].y > 1600){
             mushroomList.splice(i,1)
-            console.log(mushroomList)
-        } else{
-            mushroomList[i].y += mushroomObject.speed;
         }
+    	mushroomList[i].y += mushroomObject.speed;
+        
         
     }
 }
+
 function mushroomCreation() {
 	if(mushroomTimer % 100 == 0){
 		mushroomList.push({x: Math.random()*550, y: 0})

@@ -18,7 +18,7 @@ var mushroomTimer = 0;
 var mushroomObject = {
 	width: 40,
 	height: 40,
-	speed: 3,
+	speed: 4,
 }
 
 mapGrid = [0, 0, 0, 0, 0, 0, 0, 0,
@@ -95,7 +95,7 @@ function mushroomCollision() {
 	
 	for(i=0; i<mushroomList.length;i++){
 		var shroomInColumn = Math.floor((mushroomList[i].x)/tileWidth) //finding the tile x wise its in
-		var shroomInRow = Math.floor((mushroomList[i].y)/tileHeight);
+		var shroomInRow = Math.floor((mushroomList[i].y+40)/tileHeight);
 		var shroomInColumn2 = Math.floor((mushroomList[i].x+40)/tileWidth); //finding the tile x wise its in
 		var shroomInRow2 = Math.floor((mushroomList[i].y+40)/tileHeight);
 		var tileThatShroomXYisOn = shroomInColumn + shroomInRow * 8;
