@@ -3,13 +3,17 @@ var canvasContext;
 var ninjaX = 20;
 var ninjaY = 640-80;
 var ninjaXSpeed = 7;
-var ninjaYSpeed = 10;
+var ninjaYSpeed = 14;
 var ninjaSizeX = 40;
 var ninjaSizeY = 75;
 var tileWidth = 75;
 var tileHeight = 80;
 var angle = 0;
 var Ninja_idleLoaded = false;
+let ninjaInAir = false;
+let ninjaJump = 0;
+let ninjaRunning = false;
+let ninjaRunningTime = 0;
 
 var mushroomSizeX = 40;
 var mushroomSizeY = 40;
@@ -52,6 +56,7 @@ function update(){
 	ninjaCollision();
 	mushroomCollision();
 	ninjaMove();
+	jump();
 }
 
 function startGame(){
@@ -66,13 +71,32 @@ function ninjaMove() {
 	if(RUNNING_RIGHT && ninjaPermissionToMove){
 		ninjaX += ninjaXSpeed;
 	}
-	if(RUNNING_UP && ninjaPermissionToMove){ //Add ninja has to be on ground to jump
-		ninjaY -= ninjaYSpeed;
+	if(RUNNING_UP && ninjaPermissionToMove && !ninjaInAir){ //Add ninja has to be on ground to jump
+		ninjaInAir = true;
+		ninjaJump = 150;
 	}
-	ninjaY += 5; //GRAVITY
+	if(ninjaRunning && !ninjaInAir){
+		ninjaRunningTime = (ninjaRunningTime + 1) % 10
+	}
+	
+	
 	// if(RUNNING_DOWN && ninjaPermissionToMove){
 	// 	ninjaY += ninjaYSpeed;
 	// }
+}
+
+function jump() {
+	if(ninjaInAir && ninjaJump > 0){
+		ninjaY -= ninjaYSpeed;
+		ninjaJump -= ninjaYSpeed;
+	}
+	if(ninjaInAir && ninjaJump <= 0 && ninjaJump > -150){
+		ninjaY += ninjaYSpeed;
+		ninjaJump -= ninjaYSpeed
+	}
+	if(ninjaInAir && ninjaJump <= -150){
+		ninjaInAir = false;
+	}
 }
 //COLLISION
 function ninjaCollision() {
