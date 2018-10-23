@@ -14,6 +14,9 @@ let ninjaInAir = false;
 let ninjaJump = 0;
 let ninjaRunning = false;
 let ninjaRunningTime = 0;
+let score = 0;
+let lives = 3;
+let condition;
 
 var mushroomSizeX = 40;
 var mushroomSizeY = 40;
@@ -57,11 +60,15 @@ function update(){
 	mushroomCollision();
 	ninjaMove();
 	jump();
+	speedupMushroom();
+	updateScore();
+	livesLeft();
+	
 }
 
 function startGame(){
     var framesPerSecond = 30;
-    setInterval(update,1000/framesPerSecond)
+	condition = setInterval(update,1000/framesPerSecond)
 }
 
 function ninjaMove() {
@@ -134,7 +141,33 @@ function mushroomCollision() {
 	for(i=0; i<mushroomList.length; i++){
 		if(ninjaX < (mushroomList[i].x+40) && mushroomList[i].x < ninjaX+40
 		&& ninjaY < mushroomList[i].y+40 && mushroomList[i].y < ninjaY+80) {
-			mushroomList.splice(i,1)
+			mushroomList.splice(i,1);
+			score += 1;
 		}
 	}
+}
+function speedupMushroom() {
+	mushroomObject.speed = 4 + score;
 } 
+function updateScore() {
+	document.getElementById('score').innerText = score;
+}
+function livesLeft () {
+	canvasContext.save();
+	canvasContext.scale(2,2);
+	colorText("Lives: " + lives, 10, 10, 'orange')
+    // canvasContext.fillText(text, 0, 100);
+	canvasContext.restore();
+	if(lives === 0) {
+		gameOver()
+	}
+}
+function gameOver() {
+	canvasContext.save();
+	canvasContext.strokeStyle = "#FFFFFF";
+	canvasContext.font = "30px Calibri";
+	canvasContext.strokeText("Game Over", 180, 200);
+	canvasContext.strokeText("Click to Restart", 160, 250);
+	canvasContext.restore();
+	clearInterval(condition);
+}

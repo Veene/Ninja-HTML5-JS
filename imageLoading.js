@@ -132,8 +132,9 @@ function drawNinja(){
 function drawMushroom() {
     for(i=0;i<mushroomList.length;i++){
         drawImageSprite(mushroom1, mushroomList[i].x, mushroomList[i].y, mushroomObject.width, mushroomObject.height)
-        if(mushroomList[i].y > 1600){
-            mushroomList.splice(i,1)
+        if(mushroomList[i].y >= 800){
+				mushroomList.splice(i,1);
+				lives --;
         }
     	mushroomList[i].y += mushroomObject.speed;
         
@@ -168,10 +169,11 @@ function drawTiles() {
 	}
 }
 
+
 function drawAll() {
     drawTiles();
     mushroomCreation();
     drawMushroom();
     drawNinja();
-    mushroomTimer++;
+	mushroomTimer++;
 }
